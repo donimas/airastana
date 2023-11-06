@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:15.3
+    container_name: postgres-airastana
+    environment:
+      - POSTGRES_DB=airastana
+      - POSTGRES_USER=airastana
+      - POSTGRES_PASSWORD=
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    ports:
+      - "5432:5432"

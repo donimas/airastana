@@ -1,0 +1,20 @@
+server:
+  port: 8080
+
+logging:
+  level:
+    root: DEBUG
+
+spring:
+  jpa:
+    show-sql: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/airastana
+    username: airastana
+    password:
+    hikari:
+      poolName: Hikari
+      auto-commit: false
+  liquibase:
+    enabled: true
+    change-log: classpath:liquibase/master.xml
