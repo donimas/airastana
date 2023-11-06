@@ -31,12 +31,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().authorizeRequests()
-                .antMatchers("/authenticate").permitAll()
-                .antMatchers("/public/**").permitAll()
+        http
+            .csrf()
+                .disable()
+            .authorizeRequests()
+//                .antMatchers("/authenticate").permitAll()
+                .antMatchers("/authenticate", "/public/**").permitAll()
                 // allow swagger-ui.html to be accessed without authentication
                 .antMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                 .anyRequest().authenticated()
+                .and()
+                .formLogin().loginPage("/login").permitAll()
+                .and().logout().permitAll()
                 .and().exceptionHandling()
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
