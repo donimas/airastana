@@ -7,5 +7,8 @@
     <include file="liquibase/changelogs/changelog_initial_schema.xml"/>
     <include file="liquibase/changelogs/changelog_airport.xml"/>
     <include file="liquibase/changelogs/changelog_flight.xml"/>
+    <include file="liquibase/changelogs/changelog_070820230042.xml"/>
+    <include file="liquibase/changelogs/changelog_070820230045.xml"/>
+    <include file="liquibase/changelogs/changelog_070820230055.xml"/>
 
 </databaseChangeLog>

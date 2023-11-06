@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="070820230042" author="daniyar">
+        <loadData
+                file="liquibase/data/flight.csv"
+                separator=";"
+                tableName="flight"
+                usePreparedStatements="true">
+            <column name="origin_id" type="numeric"/>
+            <column name="destination_id" type="numeric"/>
+            <column name="departure" type="date"/>
+            <column name="arrival" type="date"/>
+            <column name="status" type="string"/>
+        </loadData>
+    </changeSet>
+
+</databaseChangeLog>
