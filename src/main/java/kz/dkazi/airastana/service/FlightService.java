@@ -25,7 +25,7 @@ public class FlightService {
     private final FlightMapper flightMapper;
 
     public FlightDTO save(FlightDTO flightDTO) {
-        log.debug("Request to save flight: {}", flightDTO);
+        log.info("Request to save flight: {}", flightDTO);
         if(flightDTO.getId() != null) {
             throw new RuntimeException("ID exists");
         }
@@ -36,10 +36,15 @@ public class FlightService {
     }
 
     public FlightDTO updateStatus(Long id, FlightDTO flightDTO) {
-        log.debug("Request to update status of Flight: {} -> {}", id, flightDTO);
+        log.info("Request to update status of Flight: {} -> {}", id, flightDTO);
         Flight flight = validateFlight(id, flightDTO);
-        Flight updated = flightRepository.save(flight);
-        return flightMapper.toDto(updated);
+        try {
+            flight.setStatus(flightDTO.getStatus());
+            Flight updated = flightRepository.save(flight);
+            return flightMapper.toDto(updated);
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage(), e);
+        }
     }
 
     private Flight validateFlight(Long id, FlightDTO flightDTO) {

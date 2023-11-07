@@ -21,11 +21,8 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
 
-//    @PostMapping("/authenticate")
-    @RequestMapping(value = "/authenticate",
-            method = RequestMethod.POST,
-            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String generateToken(CredentialsDTO credentialsDTO) throws AuthenticationException {
+    @PostMapping("/authenticate")
+    public String generateToken(@RequestBody CredentialsDTO credentialsDTO) throws AuthenticationException {
         log.info("REST request to login user: {}", credentialsDTO.getUsername());
         try {
             authenticationManager.authenticate(

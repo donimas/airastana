@@ -19,14 +19,14 @@ public class FlightController {
 
     @PostMapping("/flight")
     public ResponseEntity<FlightDTO> createFlight(@RequestBody FlightDTO flightDTO) {
-        log.debug("REST request to create Flight: {}", flightDTO);
+        log.info("REST request to create Flight: {}", flightDTO);
         FlightDTO saved = flightService.save(flightDTO);
         return ResponseEntity.ok(saved);
     }
 
     @PutMapping("/flight/{id}")
     public ResponseEntity<FlightDTO> updateStatus(@PathVariable Long id, @RequestBody FlightDTO flightDTO) {
-        log.debug("REST request to update status of Flight: {}", flightDTO);
+        log.info("REST request to update status of Flight: {}", flightDTO);
         FlightDTO updated = flightService.updateStatus(id, flightDTO);
 
         return ResponseEntity.ok(updated);

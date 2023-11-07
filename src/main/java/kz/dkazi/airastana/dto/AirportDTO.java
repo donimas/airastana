@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,14 +16,13 @@ public class AirportDTO {
 
     private Long id;
     @NotBlank
-    @Min(value = 3)
-    @Max(value = 10)
+    @Size(min = 3, max = 10)
     private String code;
     @NotBlank
-    @Max(value = 50)
+    @Size(max = 50)
     private String name;
     @NotBlank
-    @Max(value = 200)
+    @Size(max = 200)
     private String location;
     @NotBlank
     private String timeZone;

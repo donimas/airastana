@@ -28,7 +28,7 @@ public class FlightSearchService {
 
     @Transactional(readOnly = true)
     public List<FlightDTO> getFlights(String originCode, String destinationCode) {
-        log.debug("Request to find all Flights by originCode and destinationCode: {} -> {}", originCode, destinationCode);
+        log.info("Request to find all Flights by originCode and destinationCode: {} -> {}", originCode, destinationCode);
         Specification<Flight> flightSpec = buildFlightSpecification(originCode, destinationCode);
         Sort sort = Sort.by("arrival");
 
@@ -41,10 +41,12 @@ public class FlightSearchService {
     private Specification<Flight> buildFlightSpecification(String originCode, String destinationCode) {
         Specification<Flight> where = Specification.where(FlightSpec.statusIsNotNull());
         if(StringUtils.isNotBlank(originCode)) {
-            where.and(FlightSpec.originCodeEqual(originCode));
+            log.info("origin code is not blank: {}", originCode);
+            where = where.and(FlightSpec.originCodeEqual(originCode));
         }
         if(StringUtils.isNotBlank(destinationCode)) {
-            where.and(FlightSpec.destinationCodeEqual(destinationCode));
+            log.info("destination code is not blank: {}", destinationCode);
+            where = where.and(FlightSpec.destinationCodeEqual(destinationCode));
         }
         return where;
     }

@@ -23,8 +23,10 @@ public class FlightSearchController {
     private final FlightSearchService flightSearchService;
 
     @GetMapping("/flights")
-    public ResponseEntity<List<FlightDTO>> fetchFlights(@RequestParam String originCode, @RequestParam String destinationCode) {
-        log.debug("REST request to fetch flights");
+    public ResponseEntity<List<FlightDTO>> fetchFlights(
+            @RequestParam(value = "origin", required = false) String originCode,
+            @RequestParam(value = "destination", required = false) String destinationCode) {
+        log.info("REST request to fetch flights");
         List<FlightDTO> flights = flightSearchService.getFlights(originCode, destinationCode);
 
         return ResponseEntity.ok(flights);

@@ -5,6 +5,7 @@ import lombok.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Data
@@ -13,10 +14,9 @@ import java.io.Serializable;
 public class CredentialsDTO implements Serializable {
 
     @NotBlank
-    @Max(value = 50)
+    @Size(max = 50)
     private String username;
     @NotBlank
-    @Min(value = 4)
-    @Max(value = 50)
+    @Size(min = 4, max = 20)
     private String password;
 }

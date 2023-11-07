@@ -23,9 +23,8 @@ public class AirportController {
     private final AirportService airportService;
 
     @PostMapping
-
     public ResponseEntity<AirportDTO> createAirport(@RequestBody @Validated AirportDTO airportDTO) {
-        log.debug("REST request to create Airport: {}", airportDTO);
+        log.info("REST request to create Airport: {}", airportDTO);
         if(airportDTO.getId() != null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(airportDTO);
         }

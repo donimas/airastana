@@ -21,13 +21,13 @@ public class AirportService {
     private final AirportMapper airportMapper;
 
     public AirportDTO save(AirportDTO airportDTO) {
-        log.debug("Request to save Airport: {}", airportDTO);
+        log.info("Request to save Airport: {}", airportDTO);
         Airport airport = airportMapper.toEntity(airportDTO);
         return airportMapper.toDto(airportRepository.save(airport));
     }
 
     public Optional<Airport> findOneByCode(String code) {
-        log.debug("Request to find one by code: {}", code);
+        log.info("Request to find one by code: {}", code);
         return airportRepository.findOneByCode(code);
     }
 

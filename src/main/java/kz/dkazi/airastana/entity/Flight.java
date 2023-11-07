@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.zone.ZoneRulesException;
 
 @Entity
 @Table(name = "flight")
@@ -39,13 +40,23 @@ public class Flight implements Serializable {
     private FlightStatus status;
 
     public LocalDateTime getDeparture() {
-        ZoneId originTimeZone = ZoneId.of(origin.getTimeZone());
+        ZoneId originTimeZone = getZoneId(origin.getTimeZone());
         return departure.atZone(originTimeZone).toLocalDateTime();
     }
 
     public LocalDateTime getArrival() {
-        ZoneId destinationTimeZone = ZoneId.of(destination.getTimeZone());
+        ZoneId destinationTimeZone = getZoneId(destination.getTimeZone());
         return arrival.atZone(destinationTimeZone).toLocalDateTime();
+    }
+
+    private ZoneId getZoneId(String timeZone) {
+        ZoneId zoneId = null;
+        try {
+            return ZoneId.of(timeZone);
+        } catch (ZoneRulesException e) {
+            e.printStackTrace();
+            return ZoneId.systemDefault();
+        }
     }
 
 }

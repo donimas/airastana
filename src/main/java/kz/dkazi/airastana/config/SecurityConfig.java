@@ -2,6 +2,7 @@ package kz.dkazi.airastana.config;
 
 import kz.dkazi.airastana.filter.JWTFilter;
 import kz.dkazi.airastana.service.UserDetailsServiceImpl;
+import kz.dkazi.airastana.utils.Constants;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,15 +36,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .csrf()
                 .disable()
             .authorizeRequests()
-//                .antMatchers("/authenticate").permitAll()
                 .antMatchers("/authenticate", "/public/**").permitAll()
-                // allow swagger-ui.html to be accessed without authentication
                 .antMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                .antMatchers("/api/search/**").hasAnyRole("ROLE_USER", "ROLE_MODERATOR")
+                .antMatchers("/api/search/**").hasAnyAuthority(Constants.ROLE_USER, Constants.ROLE_MODERATOR)
+                .antMatchers("/api/**").hasAuthority(Constants.ROLE_MODERATOR)
                 .anyRequest().authenticated()
-                .and()
-                .formLogin().loginPage("/login").permitAll()
-                .and().logout().permitAll()
                 .and().exceptionHandling()
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
