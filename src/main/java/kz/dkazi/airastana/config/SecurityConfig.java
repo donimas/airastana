@@ -39,6 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/authenticate", "/public/**").permitAll()
                 // allow swagger-ui.html to be accessed without authentication
                 .antMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                .antMatchers("/api/search/**").hasAnyRole("ROLE_USER", "ROLE_MODERATOR")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/login").permitAll()
