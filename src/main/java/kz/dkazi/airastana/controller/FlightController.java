@@ -20,7 +20,7 @@ public class FlightController {
     @PostMapping("/flight")
     public ResponseEntity<FlightDTO> createFlight(@RequestBody FlightDTO flightDTO) {
         log.info("REST request to create Flight: {}", flightDTO);
-        FlightDTO saved = flightService.save(flightDTO);
+        FlightDTO saved = flightService.create(flightDTO);
         return ResponseEntity.ok(saved);
     }
 

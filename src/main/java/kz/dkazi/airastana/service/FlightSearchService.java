@@ -3,6 +3,8 @@ package kz.dkazi.airastana.service;
 import kz.dkazi.airastana.dto.FlightDTO;
 import kz.dkazi.airastana.dto.mapper.FlightMapper;
 import kz.dkazi.airastana.entity.Flight;
+import kz.dkazi.airastana.enums.EventType;
+import kz.dkazi.airastana.logging.LogEvent;
 import kz.dkazi.airastana.repository.FlightSearchRepository;
 import kz.dkazi.airastana.repository.spec.FlightSpec;
 import lombok.AllArgsConstructor;
@@ -27,6 +29,11 @@ public class FlightSearchService {
     private final FlightMapper flightMapper;
 
     @Transactional(readOnly = true)
+    @LogEvent(
+            type = EventType.VIEW,
+            template = "Поиск рейсов: %s",
+            values = true
+    )
     public List<FlightDTO> getFlights(String originCode, String destinationCode) {
         log.info("Request to find all Flights by originCode and destinationCode: {} -> {}", originCode, destinationCode);
         Specification<Flight> flightSpec = buildFlightSpecification(originCode, destinationCode);

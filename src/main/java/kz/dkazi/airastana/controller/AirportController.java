@@ -29,7 +29,7 @@ public class AirportController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(airportDTO);
         }
 
-        AirportDTO saved = airportService.save(airportDTO);
+        AirportDTO saved = airportService.create(airportDTO);
         return ResponseEntity.ok(saved);
     }
 

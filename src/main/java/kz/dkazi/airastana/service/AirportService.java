@@ -3,6 +3,8 @@ package kz.dkazi.airastana.service;
 import kz.dkazi.airastana.dto.AirportDTO;
 import kz.dkazi.airastana.dto.mapper.AirportMapper;
 import kz.dkazi.airastana.entity.Airport;
+import kz.dkazi.airastana.enums.EventType;
+import kz.dkazi.airastana.logging.LogEvent;
 import kz.dkazi.airastana.repository.AirportRepository;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
@@ -20,7 +22,12 @@ public class AirportService {
     private final AirportRepository airportRepository;
     private final AirportMapper airportMapper;
 
-    public AirportDTO save(AirportDTO airportDTO) {
+    @LogEvent(
+            type = EventType.CREATE,
+            template = "Добавление нового Аэропорта: %s",
+            values = true
+    )
+    public AirportDTO create(AirportDTO airportDTO) {
         log.info("Request to save Airport: {}", airportDTO);
         Airport airport = airportMapper.toEntity(airportDTO);
         return airportMapper.toDto(airportRepository.save(airport));
