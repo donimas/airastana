@@ -30,7 +30,7 @@ public class FlightService {
     public FlightDTO create(FlightDTO flightDTO) {
         log.info("Request to save flight: {}", flightDTO);
         if(flightDTO.getId() != null) {
-            throw new RuntimeException("ID exists");
+            throw new RuntimeException("ID exists", new Throwable("ID exists"));
         }
         Flight flight = flightMapper.toEntity(flightDTO);
         Flight saved = flightRepository.save(flight);
@@ -60,10 +60,10 @@ public class FlightService {
             throw new RuntimeException("id does not exist", new Throwable("id does not exist"));
         }
         if(flightDTO == null) {
-            throw new RuntimeException("Flight is null");
+            throw new RuntimeException("Flight is null", new Throwable("Flight is null"));
         }
         if(flightDTO.getStatus() == null) {
-            throw new RuntimeException("Status is null");
+            throw new RuntimeException("Status is null", new Throwable("Status is null"));
         }
         return flightRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Not found", new Throwable("id does not exist")));

@@ -50,11 +50,9 @@ public class Flight implements Serializable {
     }
 
     private ZoneId getZoneId(String timeZone) {
-        ZoneId zoneId = null;
         try {
             return ZoneId.of(timeZone);
-        } catch (ZoneRulesException e) {
-            e.printStackTrace();
+        } catch (ZoneRulesException ignore) {
             return ZoneId.systemDefault();
         }
     }
